@@ -1,0 +1,26 @@
+// Pin definitions
+const int buttonPin = 2;   // Push button connected to digital pin 2
+const int ledPin    = 13;  // LED connected to digital pin 13 (built-in LED)
+
+// Variables for button state
+int buttonState = 0;       
+int lastButtonState = 0;   
+bool ledState = false;     
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP); // Button with internal pull-up resistor
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  // Detect a button press (change from HIGH to LOW)
+  if (buttonState == LOW && lastButtonState == HIGH) {
+    ledState = !ledState;  // Toggle LED state
+    digitalWrite(ledPin, ledState);
+    delay(200);            // Simple debounce delay
+  }
+
+  lastButtonState = buttonState;
+}
